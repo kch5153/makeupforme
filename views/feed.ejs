@@ -1,0 +1,83 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Feed</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script type = "text/javascript" src="../script.js"></script>
+  </head>
+  
+  <body id = "body" class = "container">
+    
+      <h1 id = "title" class="display-1 text-center">Feed</h1>
+        
+      
+      <form class="profile-search"  method="get" action="/search">
+        <input class="form-control" type = "text" placeholder ="Type username and hit enter" id="profilename" name="profilename">
+      </form>
+       
+  
+      <div class = "row mt-5">
+        <form >
+          <button formaction="/myProfile/" type="submit" formmethod="get" class="btn btn-secondary">My Profile</button>
+        </form>
+      </div>
+      
+
+      <% if (looks) { %>
+          <% looks.forEach(function(look){ %>
+      
+            <div class="card m-5 w-50" >
+      <img src='<%= look.image %>' class="card-img-top "  alt="...">
+      <div class="card-body">
+        <ul class="list-inline">
+        <li>
+        <%look.tags.forEach(function(tag){ %>
+          <% if (tag !== "") { %>
+            #<%= tag%>
+          <% } %>
+
+        <% })%>
+        </li>
+        </ul>
+        <ul class="list-inline">
+        <li>
+        <%look.products.forEach(function(p){ %>
+          <% if (p !== "") { %>
+          <a href=https://makeup-api.herokuapp.com/api/v1/products/<%- JSON.parse(p).id%>><%- JSON.parse(p).name %></a>
+            <% } %>
+          
+        <% });%>   
+
+           
+        </li>
+        </ul>
+        <ul class="list-inline">
+          <li>
+            <form>
+              
+            
+          <button formaction="/otherProfile/<%= look.profileId%>" type="submit" formmethod="get" class="btn btn-secondary"><%= look.profileName%> </button></li>
+          </form>
+        </ul>
+      
+      
+          </div>
+              
+          </div>
+      
+      <br><br><br>
+          <% }); %>
+
+      <% } else { %>
+      <p>No one has posted any looks!</p>
+      <% } %>
+    
+  </body>
+</html>

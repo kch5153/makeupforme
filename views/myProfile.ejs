@@ -1,0 +1,128 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title><%= name%>'s MakeUpForMe'</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
+  <body id = "body" class = "container">
+  <div class= "container">
+    
+    <div class = "row mt-5 text-right">
+      <form >
+      <button formaction="/feed" type="submit" formmethod="get" class="btn btn-secondary mr-3">To Feed</button>
+      </form>
+      
+      <button class="btn btn-secondary h-100" onClick="window.location='/logout'">Log Out</button> 
+      
+    </div>
+    
+    
+    <h1 id = "title" class="display-1 text-center"><small class="text-muted">my</small>MakeUpForMe</h1>
+    
+    <div class="row justify-content-left" >
+      <div class="col-med-4" >
+        <img src='<%= image %>' height=200rem width=200rem class="rounded-circle" class="img-responsive"/>
+      </div>
+      <div class = "col-med-8 ml-3" >
+        <h2 class="display-3"><%= name%></h2>
+        
+        <p><%= city%>, <%= state%><br></p>
+        <p><%= bio%></p>
+        
+        <div>
+        <% if (following.length>1){%>
+        
+        <b>Following:</b>
+        <% for (var i = 1; i<following.length; i++){%>
+        <%allprofiles.forEach(function(prof){%>
+        <% if (following[i].equals(prof._id)) {%>
+        <%=prof.userName%>
+        <%}%>
+        <%})%>
+        <%}%>
+        <%}%>
+        </div>
+        
+        <div>
+        <% if (tags.length>0){%>
+        <b>Tags:</b>
+        <%tags.forEach(function(tag){%>
+        <%= tag%>
+        <%})%>
+        <%}%>
+        </div>
+
+        
+
+      </div>
+    </div>
+      
+    <div class="row justify-content-center" >
+    <span class="display-3"><small class="text-muted" >my</small>Looks</span>
+    </div>
+
+    
+    <% if (looks) { %>
+    <% looks.forEach(function(look){ %>
+    <div class"row justify-content-center">
+      
+    <div class="card m-5 w-50" >
+      <img src='<%= look.image %>' class="card-img-top "  alt="...">
+      <div class="card-body">
+        <ul class="list-inline">
+        <li>
+        <%look.tags.forEach(function(tag){ %>
+          <% if (tag !== "") { %>
+            #<%= tag%>
+          <% } %>
+
+        <% })%>
+        </li>
+        </ul>
+        <ul class="list-inline">
+        <li>
+        <%look.products.forEach(function(p){ %>
+          <% if (p !== "") { %>
+          <a href=https://makeup-api.herokuapp.com/api/v1/products/<%- JSON.parse(p).id%>><%- JSON.parse(p).name %></a>
+            <% } %>
+          
+        <% });%>   
+
+           
+        </li>
+        </ul>
+      
+        <form>
+      <button formaction="/look/delete/<%=pId%>/<%=look._id%>" type="submit" formmethod="POST" class="btn btn-secondary mr-3">Delete Look</a>
+      <button formaction="/look/update/<%=pId%>/<%=look._id%>" type="submit" formmethod="GET" class="btn btn-secondary">Update Look</a>
+      </form>
+          </div>
+          </div>
+  </div>
+   <% }); %> 
+    
+      
+    
+    <% } else { %>
+        <%= name%> has no looks
+    <% } %>
+    
+    <form>
+      
+      <button class="btn btn-secondary"  formaction="/look/create/<%=uId%>/<%=pId%>" formmethod="GET" type="submit">Add Look </button>
+      
+      <button class="btn btn-secondary" formaction="/myProfile/delete/<%=pId%>" formmethod="POST" type="submit">Delete Account</button>
+      
+    </form>
+
+    
+  </body>
+</html>
