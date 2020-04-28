@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Create Look</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="/script.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>const allProducts = <%- JSON.stringify(products) %></script>
+  </head>
+  
+  <body id = "body" class = "container">
+    <h1  id = "title" class="display-1 text-center">
+      <%= cu %> Look!
+    </h1>
+   <form method="post" action="/look/<%= cu%>/<%=uId%>/<%=pId%>/<%=lId%>">
+
+     <label>Enter a URL for your Look Image!</label><br>
+      <input type="text" name="image" required placeholder="URL" value = "<%= vURL %>" required></input><br><br>
+      <label>Enter up to Five Tags!</label><br>
+     <input type="text" name="tag1" placeholder="Tag" value = "<%= vtag1 %>"><br>
+     <input type="text" name="tag2" placeholder="Tag" value = "<%= vtag2 %>"><br>
+     <input type="text" name="tag3" placeholder="Tag" value = "<%= vtag3 %>"><br>
+     <input type="text" name="tag4" placeholder="Tag" value = "<%= vtag4 %>"><br>
+     <input type="text" name="tag5" placeholder="Tag" value = "<%= vtag5 %>"><br><br>
+
+    <label>Enter Products!</label><br>
+   
+     <div>
+       <div class="dropdown">
+      <div id="brandDropdown" class="dropdown-content">
+        <select id="brands1" onchange="getProductsForBrand(document.getElementById('brands1').value, document.getElementById('product1'), allProducts)">
+          <option value="<%= vbrand1%>"><%= brand1%></option>
+          <% brands.forEach(function(brand){ %>
+            <option value="<%= brand%>"><%= brand%></option>
+            <% vBrand = brand %>
+          <% }); %>
+        </select> 
+      </div>
+    </div>
+     
+    <div class="dropdown">
+      <div id="products" class="dropdown-content">
+        <select id="product1" name="product1">
+          <option value="<%= vproduct1%>" ><%= product1%></option>
+        </select> 
+      </div>
+    </div><br><br>
+     </div>
+     
+     <div>
+       <div class="dropdown">
+      <div id="brandDropdown" class="dropdown-content">
+        <select id="brands2" onchange="getProductsForBrand(document.getElementById('brands2').value, document.getElementById('product2'), allProducts)">
+          <option value="<%= vbrand2%>"><%= brand2%></option>
+          <% brands.forEach(function(brand){ %>
+            <option value="<%= brand%>" name = "brand"><%= brand%></option>
+            <% vBrand = brand %>
+          <% }); %>
+        </select> 
+      </div>
+    </div>
+     
+    <div class="dropdown">
+      <div id="products" class="dropdown-content">
+        <select id="product2" name="product2">
+          <option value="<%= vproduct2%>" ><%= product2%></option>
+        </select> 
+      </div>
+    </div><br><br>
+     </div>
+     
+     <div>
+       <div class="dropdown">
+      <div id="brandDropdown" class="dropdown-content">
+        <select id="brands3" onchange="getProductsForBrand(document.getElementById('brands3').value, document.getElementById('product3'), allProducts)">
+          <option value="<%= vbrand3%>"><%= brand3%></option>
+          <% brands.forEach(function(brand){ %>
+            <option value="<%= brand%>" name = "brand"><%= brand%></option>
+            <% vBrand = brand %>
+          <% }); %>
+        </select> 
+      </div>
+    </div>
+     
+    <div class="dropdown">
+      <div id="products" class="dropdown-content">
+        <select id="product3" name="product3">
+          <option value="<%= vproduct3%>" ><%= product3%></option>
+        </select> 
+      </div>
+    </div><br><br>
+     </div>
+     
+  <input class = "btn btn-secondary  mt-5"  type="submit" value="<%=cu %> Look!"><br><br>
+  </form><br><br>
+    
+</html>
+    

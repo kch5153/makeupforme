@@ -1,0 +1,53 @@
+<% include partials/header.ejs %>
+
+<body
+    <div class="table-wrapper">
+        <% if (users.length > 0) {%>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Profile Picture</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(function(user){ %>
+                        <tr>
+                          <th scope="row" class='user_id'><%= user.userName %></th>
+                          <td><img src="<%= user.image %>" height=50rem width=50rem class="rounded-circle profile-img" alt=""></td>
+                          <td><%= user.name %></td>
+                          <td><%= user.email%></td>
+                          <td><button class = "btn  w-100 h-50 responsive-width"  onclick="delUser('<%= user.userName %>','<%= user.email %>');">Delete User</button></td>
+                          <td><form><button class = "btn  w-100 h-50 responsive-width" formaction='viewprofile/<%= user.userName %>' formmethod="GET" type="submit">View Profile</button></form></td>  
+                          
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+        <% } %>
+    </div>
+</div>
+
+<script>
+    function delUser(username,email){
+      fetch('https://2560-final-makeupforme.glitch.me/delete_user/'+email+'/'+username, {
+        headers:{
+          "content-type":"application/json",
+        },
+        method: 'POST'
+        }).then(resp=>{
+          console.log(resp.data)
+        }, err=>{
+          console.log(err);
+        })
+      location=location;
+    }
+  
+</script>
+</body>
+</html>
